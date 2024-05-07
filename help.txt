@@ -1,0 +1,43 @@
+
+# Area Plot for Fitness Ranges
+plot_area <- function(data1, data2, data3) {
+  plot(data1[,1], data1[,2] + data1[,3], type = 'l', col = 'red', ylim = range(c(data1[,2] - data1[,3], data2[,2] - data2[,3], data3[,2] - data3[,3], data1[,2] + data1[,3], data2[,2] + data2[,3], data3[,2] + data3[,3])), xlab = 'Generation', ylab = 'Fitness', main = 'Fitness Range Over Generations')
+  lines(data1[,1], data1[,2] - data1[,3], col = 'red')
+  polygon(c(data1[,1], rev(data1[,1])), c(data1[,2] + data1[,3], rev(data1[,2] - data1[,3])), col = rgb(1, 0, 0, 0.3), border = NA)
+  
+  lines(data2[,1], data2[,2] + data2[,3], col = 'blue')
+  lines(data2[,1], data2[,2] - data2[,3], col = 'blue')
+  polygon(c(data2[,1], rev(data2[,1])), c(data2[,2] + data2[,3], rev(data2[,2] - data2[,3])), col = rgb(0, 0, 1, 0.3), border = NA)
+  
+  lines(data3[,1], data3[,2] + data3[,3], col = 'green')
+  lines(data3[,1], data3[,2] - data3[,3], col = 'green')
+  polygon(c(data3[,1], rev(data3[,1])), c(data3[,2] + data3[,3], rev(data3[,2] - data3[,3])), col = rgb(0, 1, 0, 0.3), border = NA)
+  
+  legend("topright", legend = c("GA1", "GA2", "GA3"), fill = c(rgb(1, 0, 0, 0.5), rgb(0, 0, 1, 0.5), rgb(0, 1, 0, 0.5)))
+}
+
+plot_area(parsemydata1, parsemydata2, parsemydata3)
+
+
+
+#Fitness Distribution Across Generations
+plot_scatter <- function(data1, data2, data3) {
+  plot(data1[,1], data1[,2], ylim = range(c(data1[,2], data2[,2], data3[,2])), pch = 19, col = rgb(1, 0, 0, 0.5), xlab = "Generation", ylab = "Fitness", main = "Fitness Distribution Across Generations")
+  points(data2[,1], data2[,2], pch = 19, col = rgb(0, 0, 1, 0.5))
+  points(data3[,1], data3[,2], pch = 19, col = rgb(0, 1, 0, 0.5))
+  legend("topright", legend = c("GA1", "GA2", "GA3"), col = c(rgb(1, 0, 0, 0.5), rgb(0, 0, 1, 0.5), rgb(0, 1, 0, 0.5)), pch = 19)
+}
+
+plot_scatter(parsemydata1, parsemydata2, parsemydata3)
+
+plot_combined <- function(data1, data2, data3, hues=c("black","blue","green")) {
+  plot(data1[,1], data1[,2], type = 'b', pch = 19, lty = 1, col = hues[1], ylim = range(c(data1[,2], data2[,2], data3[,2])), xlab = "Generation", ylab = "Fitness", main = "Combined Fitness Line and Point Plot")
+  points(data2[,1], data2[,2], pch = 19, col = hues[2])
+  lines(data2[,1], data2[,2], col = hues[2], lty = 1)
+  points(data3[,1], data3[,2], pch = 19, col = hues[3])
+  lines(data3[,1], data3[,2], col = hues[3], lty = 1)
+  
+  legend("topright", legend = c("GA1", "GA2", "GA3"), col = hues, pch = 19, lty = 1)
+}
+
+plot_combined(parsemydata1, parsemydata2, parsemydata3)
